@@ -15,7 +15,7 @@ function Banner() {
   const fetchData = async () => {
     //현재 상영중인 영화 정보를 가져오기 (여러영화)
     const request = await axios.get(requests.fetchNowPlaying);
-    console.log("request", request);
+    console.log("request!!!", request);
 
     //여러 영화 중 영화 하나의 아이디 가져오기
     const movieId =
@@ -24,11 +24,12 @@ function Banner() {
       ].id;
 
     //특정 영화의 더 상세한 정보를 가져오기(비디오 정보도 포함)
-    const { data: movieDetail } = await axios.get(`movie/${movieId}`, {
+    const { data: movieDetail } = await axios.get(`movie1/${movieId}`, {
       params: { append_to_response: "videos" },
     });
+    console.log("이거이거자나!!!!", movieDetail);
     setMovie(movieDetail);
-    console.log("movie", movie);
+    console.log("movie!!!!", movie);
   };
 
   const truncate = (str, n) => {
