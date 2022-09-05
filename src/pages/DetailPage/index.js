@@ -1,18 +1,28 @@
 import axios from "../../api/axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function DetailPage() {
   const { movieId } = useParams();
-  console.log("movieId", movieId);
+  const [movie, setMovie] = useState({});
 
   useEffect(() => {
     async function fetchData() {
       const request = await axios.get(`/movie/${movieId}`);
-      console.log("디테일 request", request);
+      setMovie(request.data);
     }
     return fetchData();
-  }, []);
+  }, [movieId]);
 
-  return <div>디테일 페이지</div>;
+  if (!movie) return <div>...loading 중</div>;
+
+  return (
+    <section>
+      <img
+        className="modal__poster-img"
+        src={`https://image.tmdb.org/t/p/original/${movie.background_path}`}
+        alt="modal__poster-img"
+      />
+    </section>
+  );
 }
